@@ -21,7 +21,7 @@ Additional description about the project and its features.
 ## Built With
 
 - Ruby
-- VSC
+- VScode
 
 
 ## Getting Started
@@ -30,7 +30,7 @@ To get a local copy up and running follow these simple example steps.
 
 - Install [Ruby] (https://ruby-doc.org/downloads/)
 - Press Code then press Download ZIP (or)
-- Open terminal and type `git clone https://github.com/erezfree29/my-Enumerables-project.git`
+- Open terminal and type `git clone https://github.com/Bishoy-Samwel/my-Enumerables-project`
 - `cd my-Enumerables-project`
 - Open terminal with the same directory
 - Test first file by writing: ruby bubble_sort.rb
