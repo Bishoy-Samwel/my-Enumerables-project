@@ -47,49 +47,74 @@ end
 
 describe 'my_any?' do
   ary = %w[ant bear cat]
-  it  "any of the elements' length larger than or equal a specific value?" do
+  it "any of the elements' length larger than or equal a specific value?" do
     expect(ary.my_any? { |word| word.length >= 3 }).to eql(true)
     expect(ary.my_any? { |word| word.length >= 4 }).not_to eql(false)
   end
-  it "any of the elements match a pattern?" do
+  it 'any of the elements match a pattern?' do
     expect(ary.my_any?(/d/)).to eql(false)
   end
-  it "any of the elements is an Integer?" do
+  it 'any of the elements is an Integer?' do
     expect([nil, true, 99].my_any?(Integer)).to eql(true)
   end
-  it "any of the elements has a value or true?" do
-    expect([nil, true, 99].my_any? ).to eql(true)
+  it 'any of the elements has a value or true?' do
+    expect([nil, true, 99].my_any?).to eql(true)
   end
-  it "any of the elements is equal to a specific string" do
-    expect(["bear","cow","pig"].my_any?("bear")).to eql(true)
-    expect(["fish","cow","pig"].my_any?("bear")).not_to eql(true)
+  it 'any of the elements is equal to a specific string' do
+    expect(%w[bear cow pig].my_any?('bear')).to eql(true)
+    expect(%w[fish cow pig].my_any?('bear')).not_to eql(true)
   end
 end
 
 describe 'my_none?' do
-  ary = %w{ant bear cat}
-  it "none of the elements is equal to 5?" do
+  ary = %w[ant bear cat]
+  it 'none of the elements is equal to 5?' do
     expect(ary.my_none? { |word| word.length == 5 }).to eql(true)
   end
-  it "none of the elements is larger than or equal 4?" do
+  it 'none of the elements is larger than or equal 4?' do
     expect(ary.my_none? { |word| word.length >= 4 }).to eql(false)
   end
-  it "none of the elements is digit?" do
+  it 'none of the elements is digit?' do
     expect(ary.my_none?(/d/)).to eql(true)
   end
-  it "none of the elements is float?" do
+  it 'none of the elements is float?' do
     expect([1, 3.14, 42].my_none?(Float)).to eql(false)
   end
-  it "the list is empty?" do
+  it 'the list is empty?' do
     expect([].my_none?).to eql(true)
   end
-  it "the list has only nil or false?" do
+  it 'the list has only nil or false?' do
     expect([nil].my_none?).to eql(true)
     expect([nil, false].my_none?).to eql(true)
-    expect( [nil, false, true].my_none?).not_to eql(true)
+    expect([nil, false, true].my_none?).not_to eql(true)
   end
-  it "none of the elements is equat to a specific string?" do
-    expect( ["fish","cow","pig"].my_none?("bear")).to eql(true)
-    expect( ["bear","cow","pig"].my_none?("bear")).not_to eql(true)
+  it 'none of the elements is equat to a specific string?' do
+    expect(%w[fish cow pig].my_none?('bear')).to eql(true)
+    expect(%w[bear cow pig].my_none?('bear')).not_to eql(true)
+  end
+end
+
+describe 'my_count?' do
+  ary = [1, 2, 4, 2]
+  it 'No Block => length' do
+    expect(ary.my_count).to eql(4)
+  end
+  it 'Counts the number of elements that are 2' do
+    expect(ary.my_count(2)).to eql(2)
+  end
+  it 'Counts the number of elements that are odd' do
+    expect(ary.my_count(&:even?)).to eql(3)
+  end
+end
+describe 'my_map' do
+  it 'return the new modefied array multiply each item with it self' do
+    expect((1..4).my_map { |i| i * i }).to eql([1, 4, 9, 16])
+  end
+  it 'return new array by converting each item to a cat string' do
+    expect((1..4).my_map { 'cat' }).to eql(%w[cat cat cat cat])
+  end
+  it 'takes a proc ' do
+    proc1 = proc { |x| x**2 }
+    expect((1..4).my_map(proc1)).to eql([1, 4, 9, 16])
   end
 end
