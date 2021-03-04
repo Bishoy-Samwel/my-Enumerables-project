@@ -106,6 +106,7 @@ describe 'my_count?' do
     expect(ary.my_count(&:even?)).to eql(3)
   end
 end
+
 describe 'my_map' do
   it 'return the new modefied array multiply each item with it self' do
     expect((1..4).my_map { |i| i * i }).to eql([1, 4, 9, 16])
@@ -116,5 +117,30 @@ describe 'my_map' do
   it 'takes a proc ' do
     proc1 = proc { |x| x**2 }
     expect((1..4).my_map(proc1)).to eql([1, 4, 9, 16])
+  end
+end
+
+describe 'my_inject' do
+  it 'multiplies all the elements of the array together' do
+    expect((5..10).my_inject(1, :*)).to eql(151_200)
+    expect((5..10).my_inject(1) { |product, n| product * n }).to eql(151_200)
+  end
+  it 'sum all the elements of the array together' do
+    expect((1..3).my_inject { |sum, n| sum + n }).to eql(6)
+  end
+  it 'sum all the elements of the array together' do
+    expect((1..3).my_inject { |sum, n| sum + n }).to eql(6)
+  end
+  it 'return the longest string' do
+    longest = %w[cat sheep bear].my_inject do |memo, word|
+      memo.length > word.length ? memo : word
+    end
+    expect(longest).to eql('sheep')
+  end
+end
+
+describe 'multiply_els' do
+  it 'multiplies all the elements of the array together ' do
+    expect(multiply_els([2, 4, 5])).to eql(40)
   end
 end
